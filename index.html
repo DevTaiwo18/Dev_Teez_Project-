@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="PayGate API - Power your VTU business with seamless APIs. Connect to airtime, data, electricity and more instantly."
+    />
+    <meta
+      name="keywords"
+      content="VTU API, airtime API, data API, electricity API, payment gateway, developer API"
+    />
+    <meta name="author" content="PayGate" />
+
+    <title>PayGate API - Power your VTU business with seamless APIs</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2314b8a6;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%230d9488;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%230f766e;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body class="bg-white">
+    <nav class="bg-white">
+      <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 rounded-xl"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  #14b8a6 0%,
+                  #0d9488 50%,
+                  #0f766e 100%
+                );
+                box-shadow: 0 4px 14px 0 rgba(20, 184, 166, 0.39);
+              "
+            ></div>
+            <span class="text-xl font-bold text-gray-900">PayGate API</span>
+          </div>
+
+          <div
+            class="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2"
+          >
+            <a href="#" class="text-gray-900 hover:text-gray-700 font-medium"
+              >Home</a
+            >
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium"
+              >Features</a
+            >
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium"
+              >Pricing</a
+            >
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium"
+              >Docs</a
+            >
+          </div>
+
+          <div class="hidden md:flex items-center space-x-4">
+            <button
+              class="px-5 py-2 text-gray-700 hover:text-gray-900 font-medium border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+            >
+              Log In
+            </button>
+            <button
+              class="px-5 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 font-medium transition"
+            >
+              Sign Up
+            </button>
+          </div>
+
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden p-2 text-gray-700 hover:text-gray-900"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 space-y-4">
+          <a
+            href="#"
+            class="block text-gray-900 hover:text-gray-700 font-medium py-2"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="block text-gray-700 hover:text-gray-900 font-medium py-2"
+            >Features</a
+          >
+          <a
+            href="#"
+            class="block text-gray-700 hover:text-gray-900 font-medium py-2"
+            >Pricing</a
+          >
+          <a
+            href="#"
+            class="block text-gray-700 hover:text-gray-900 font-medium py-2"
+            >Docs</a
+          >
+          <div class="flex flex-col space-y-3 pt-4">
+            <button
+              class="px-5 py-2 text-gray-700 hover:text-gray-900 font-medium border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+            >
+              Log In
+            </button>
+            <button
+              class="px-5 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 font-medium transition"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="max-w-7xl mx-auto px-6 py-12 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div class="order-1">
+          <div class="flex items-center space-x-2 mb-6 md:mb-8">
+            <div
+              class="w-2 h-2 rounded-full"
+              style="background-color: #14b8a6"
+            ></div>
+            <span class="text-sm md:text-base text-gray-600"
+              >Now serving 1000+ businesses</span
+            >
+          </div>
+
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 md:mb-6 leading-tight"
+          >
+            Power your VTU business with seamless APIs
+          </h1>
+
+          <p
+            class="text-base md:text-lg text-gray-600 mb-8 md:mb-10 leading-relaxed"
+          >
+            Connect to airtime, data, electricity & more — instantly. Build,
+            scale, and manage your VTU platform with our reliable,
+            developer-friendly API.
+          </p>
+
+          <div class="flex flex-col sm:flex-row flex-wrap gap-4 mb-8 md:mb-12">
+            <button
+              class="px-8 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 font-medium transition text-center"
+            >
+              Create Free Account
+            </button>
+            <button
+              class="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 font-medium transition flex items-center justify-center space-x-2"
+            >
+              <span>View API Docs</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <div class="flex -space-x-2">
+              <div
+                class="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"
+              ></div>
+              <div
+                class="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"
+              ></div>
+              <div
+                class="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"
+              ></div>
+              <div
+                class="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"
+              ></div>
+            </div>
+            <span class="text-sm md:text-base text-gray-600"
+              ><span class="font-semibold">500+</span> developers trust PayGate
+              API</span
+            >
+          </div>
+        </div>
+
+        <div class="relative order-2">
+          <div
+            class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 md:p-6 shadow-2xl"
+          >
+            <div class="flex items-center space-x-2 mb-4">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+
+            <pre
+              class="text-xs md:text-sm text-gray-300 font-mono overflow-x-auto"
+            ><code><span class="text-gray-500">// Initialize the PayGate API</span>
+<span class="text-purple-400">const</span> <span class="text-blue-300">paygate</span> = <span class="text-purple-400">new</span> <span class="text-yellow-300">PayGate</span>({
+  <span class="text-blue-300">apiKey</span>: <span class="text-green-400">'your_api_key'</span>
+});
+
+<span class="text-gray-500">// Purchase airtime</span>
+<span class="text-purple-400">const</span> <span class="text-blue-300">response</span> = <span class="text-purple-400">await</span> paygate.vtu.<span class="text-yellow-300">airtime</span>({
+  <span class="text-blue-300">phone</span>: <span class="text-green-400">'08012345678'</span>,
+  <span class="text-blue-300">amount</span>: <span class="text-orange-400">1000</span>,
+  <span class="text-blue-300">provider</span>: <span class="text-green-400">'mtn'</span>
+});
+
+<span class="text-gray-500">// Success!</span>
+console.<span class="text-yellow-300">log</span>(response.data);</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-16 md:py-24">
+      <div class="text-center mb-12">
+        <h2
+          class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4"
+        >
+          See how easy it is to integrate
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+          Our simple API lets you integrate VTU services in minutes, not days.
+          Watch how quickly you can get started.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div
+          class="relative bg-gradient-to-br from-teal-700 to-teal-900 rounded-2xl overflow-hidden shadow-2xl"
+          style="
+            padding-bottom: 56.25%;
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+          "
+        >
+          <div class="absolute inset-0 flex items-center justify-center">
+            <button
+              class="w-20 h-20 bg-teal-400 rounded-full flex items-center justify-center hover:bg-teal-300 transition shadow-lg"
+            >
+              <svg
+                class="w-8 h-8 text-teal-900 ml-1"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+          </div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <p class="font-semibold text-lg">PayGate API Integration Demo</p>
+            <p class="text-sm text-teal-200">See our API in action (2:45)</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-sm text-gray-500 mt-8">
+        No credit card required to get started with our free developer plan
+      </p>
+    </section>
+
+    <section class="bg-white py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4"
+          >
+            Powerful Features for VTU Businesses
+          </h2>
+          <p class="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+            Everything you need to build, scale, and manage your VTU platform
+            with confidence.
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
+        >
+          <div
+            class="text-center md:text-left p-6 border border-gray-200 rounded-xl"
+          >
+            <div
+              class="w-12 h-12 mx-auto md:mx-0 mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">
+              Fast Transaction Processing
+            </h3>
+            <p class="text-gray-600">
+              Process VTU transactions in milliseconds with our optimized
+              infrastructure and direct provider connections.
+            </p>
+          </div>
+
+          <div
+            class="text-center md:text-left p-6 border border-gray-200 rounded-xl"
+          >
+            <div
+              class="w-12 h-12 mx-auto md:mx-0 mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">
+              Bank-Grade Security
+            </h3>
+            <p class="text-gray-600">
+              Your data and transactions are protected with enterprise-level
+              encryption and security protocols.
+            </p>
+          </div>
+
+          <div
+            class="text-center md:text-left p-6 border border-gray-200 rounded-xl"
+          >
+            <div
+              class="w-12 h-12 mx-auto md:mx-0 mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">
+              Developer-Friendly Docs
+            </h3>
+            <p class="text-gray-600">
+              Comprehensive API documentation with code examples in multiple
+              languages for quick integration.
+            </p>
+          </div>
+
+          <div
+            class="text-center md:text-left p-6 border border-gray-200 rounded-xl"
+          >
+            <div
+              class="w-12 h-12 mx-auto md:mx-0 mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">
+              Real-Time Analytics
+            </h3>
+            <p class="text-gray-600">
+              Monitor transactions, track usage, and gain insights with our
+              powerful analytics dashboard.
+            </p>
+          </div>
+
+          <div
+            class="text-center md:text-left p-6 border border-gray-200 rounded-xl"
+          >
+            <div
+              class="w-12 h-12 mx-auto md:mx-0 mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">
+              99.9% Uptime SLA
+            </h3>
+            <p class="text-gray-600">
+              Built for reliability with redundant systems and continuous
+              monitoring to ensure your business never stops.
+            </p>
+          </div>
+
+          <div
+            class="text-center md:text-left p-6 border border-gray-200 rounded-xl"
+          >
+            <div
+              class="w-12 h-12 mx-auto md:mx-0 mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">
+              Scalable Infrastructure
+            </h3>
+            <p class="text-gray-600">
+              Our API scales with your business, handling from 10 to 10 million
+              transactions with the same performance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>
