@@ -195,36 +195,29 @@
                     </div>
 
                     <!-- Right: Code Preview -->
-                    <div class="relative">
-                        <div class="relative bg-[#F5F7FA] rounded-xl p-4 shadow-lg">
-                            <div class="bg-[#0A2540] rounded-lg p-4 font-mono text-sm text-white overflow-hidden">
-                                <div class="flex items-center mb-4">
-                                    <div class="flex space-x-2">
-                                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                                    </div>
-                                </div>
-                                <pre class="text-xs sm:text-sm">
-<code class="language-javascript">// Initialize the PayGate API
-const paygate = new PayGate({
-  apiKey: 'your_api_key'
-});
-// Purchase airtime
-const response = await paygate.vtu.airtime({
-  phone: '08012345678',
-  amount: 1000,
-  provider: 'mtn'
-});
-// Success!
-console.log(response.data);</code>
-            </pre>
+                    <div class="relative order-2">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 md:p-6 shadow-2xl">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
-                        </div>
 
-                        <!-- Floating Elements -->
-                        <div class="absolute -top-6 -right-6 w-20 h-20 bg-[#00C4B3]/20 rounded-lg blur-xl"></div>
-                        <div class="absolute -bottom-6 -left-6 w-20 h-20 bg-[#0A2540]/20 rounded-lg blur-xl"></div>
+                            <pre class="text-xs md:text-sm text-gray-300 font-mono overflow-x-auto"><code><span class="text-gray-500">// Initialize the PayGate API</span>
+<span class="text-purple-400">const</span> <span class="text-blue-300">paygate</span> = <span class="text-purple-400">new</span> <span class="text-yellow-300">PayGate</span>({
+  <span class="text-blue-300">apiKey</span>: <span class="text-green-400">'your_api_key'</span>
+});
+
+<span class="text-gray-500">// Purchase airtime</span>
+<span class="text-purple-400">const</span> <span class="text-blue-300">response</span> = <span class="text-purple-400">await</span> paygate.vtu.<span class="text-yellow-300">airtime</span>({
+  <span class="text-blue-300">phone</span>: <span class="text-green-400">'08012345678'</span>,
+  <span class="text-blue-300">amount</span>: <span class="text-orange-400">1000</span>,
+  <span class="text-blue-300">provider</span>: <span class="text-green-400">'mtn'</span>
+});
+
+<span class="text-gray-500">// Success!</span>
+console.<span class="text-yellow-300">log</span>(response.data);</code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
