@@ -1,0 +1,131 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | PayGate API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-[#F5F7FA] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <!-- Logo -->
+        <div class="flex justify-center">
+            <a href="/" class="flex items-center">
+                <div class="h-10 w-10 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-[#0A2540] font-bold text-2xl">PayGate API</span>
+            </a>
+        </div>
+
+        <h2 class="mt-6 text-center text-3xl font-bold text-[#0A2540]">
+            Sign in to your account
+        </h2>
+
+        <p class="mt-2 text-center text-sm text-gray-600">
+            Don't have an account?
+            <a href="/signup" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+                Create an account
+            </a>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <!-- Error Message (hidden by default) -->
+            <div id="error-message" class="hidden rounded-md bg-red-50 p-4 mb-4">
+                <div class="flex">
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-red-800">Invalid email or password</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">
+                        Email address
+                    </label>
+                    <div class="mt-1">
+                        <input id="email" name="email" type="email" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm"
+                            placeholder="you@example.com" />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">
+                        Password
+                    </label>
+                    <div class="mt-1">
+                        <input id="password" name="password" type="password" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="rememberMe" name="rememberMe" type="checkbox"
+                            class="h-4 w-4 text-[#00C4B3] focus:ring-[#00C4B3] border-gray-300 rounded" />
+                        <label for="rememberMe" class="ml-2 block text-sm text-gray-700">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="/forgot-password" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+                            Forgot your password?
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" id="submit-btn"
+                        class="w-full flex justify-center items-center bg-[#00C4B3] hover:bg-[#0A2540] text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        <span id="btn-text">Sign in</span>
+                        <svg id="btn-loader" xmlns="http://www.w3.org/2000/svg"
+                            class="hidden animate-spin ml-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <a href="/"
+                    class="flex items-center justify-center text-sm font-medium text-gray-600 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const errorMsg = document.getElementById('error-message');
+        const btnText = document.getElementById('btn-text');
+        const btnLoader = document.getElementById('btn-loader');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+
+            setTimeout(() => {
+                btnLoader.classList.add('hidden');
+                btnText.classList.remove('hidden');
+                errorMsg.classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>
