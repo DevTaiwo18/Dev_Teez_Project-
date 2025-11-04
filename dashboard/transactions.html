@@ -428,6 +428,11 @@
             const filtersPanel = document.getElementById("filtersPanel");
             const chevronIcon = document.getElementById("chevronIcon");
 
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            const openSidebarBtn = document.getElementById('openSidebarBtn');
+            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
             function renderTable(data) {
                 tbody.innerHTML = "";
                 if (data.length === 0) {
@@ -493,6 +498,43 @@
             });
 
             renderTable(transactions);
+            // Open mobile sidebar
+            function openSidebar() {
+                sidebarOverlay.classList.remove('hidden');
+                mobileSidebar.classList.remove('-translate-x-full');
+                // prevent body scroll when sidebar open
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Close mobile sidebar
+            function closeSidebar() {
+                sidebarOverlay.classList.add('hidden');
+                mobileSidebar.classList.add('-translate-x-full');
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+            }
+
+            // Toggle wrapper used by inline onclick in header
+            function toggleSidebar(show) {
+                if (show) openSidebar();
+                else closeSidebar();
+            }
+
+            // Hook buttons
+            openSidebarBtn && openSidebarBtn.addEventListener('click', openSidebar);
+            closeSidebarBtn && closeSidebarBtn.addEventListener('click', closeSidebar);
+            sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Close sidebar on Esc
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeSidebar();
+                }
+            });
+
+
+
         </script>
 
 
