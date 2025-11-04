@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up | PayGate API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-[#F5F7FA] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <!-- Logo -->
+        <div class="flex justify-center">
+            <a href="/" class="flex items-center">
+                <div class="h-10 w-10 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-[#0A2540] font-bold text-2xl">PayGate API</span>
+            </a>
+        </div>
+
+        <h2 class="mt-6 text-center text-3xl font-bold text-[#0A2540]">
+            Create your account
+        </h2>
+
+        <p class="mt-2 text-center text-sm text-gray-600">
+            Already have an account?
+            <a href="/login" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+                Sign in
+            </a>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+
+            <!-- ✅ Success Message (hidden by default) -->
+            <div id="success-message" class="hidden text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-green-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2l4 -4m6 2a9 9 0 1 1 -18 0a9 9 0 0 1 18 0z" />
+                </svg>
+                <h3 class="mt-2 text-lg font-medium text-gray-900">Account created successfully!</h3>
+                <p class="mt-1 text-sm text-gray-500">Redirecting you to login...</p>
+            </div>
+
+            <!-- ✅ Form -->
+            <form id="signup-form" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <div class="mt-1">
+                        <input id="email" name="email" type="email" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm"
+                            placeholder="you@example.com" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700">First name</label>
+                        <div class="mt-1">
+                            <input id="firstName" name="firstName" type="text" required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
+                        <div class="mt-1">
+                            <input id="lastName" name="lastName" type="text" required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="mt-1">
+                        <input id="password" name="password" type="password" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="w-full flex justify-center items-center bg-[#00C4B3] hover:bg-[#0A2540] text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        <span id="button-text">Create Account</span>
+                        <svg id="loader" xmlns="http://www.w3.org/2000/svg"
+                            class="hidden animate-spin ml-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <a href="/"
+                    class="flex items-center justify-center text-sm font-medium text-gray-600 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('signup-form');
+        const success = document.getElementById('success-message');
+        const buttonText = document.getElementById('button-text');
+        const loader = document.getElementById('loader');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            buttonText.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            setTimeout(() => {
+                form.classList.add('hidden');
+                success.classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>
