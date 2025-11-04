@@ -1,0 +1,113 @@
+<!-- HeroSection.html (static version of HeroSection.tsx) -->
+<section id="home" class="relative pt-20 overflow-hidden">
+    <!-- Background Gradient Elements -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#00C4B3]/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -left-24 w-96 h-96 bg-[#0A2540]/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-24 sm:pb-32 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="flex flex-col items-start space-y-8">
+                <div
+                    class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-[#F5F7FA] text-[#0A2540]">
+                    <span class="flex h-2 w-2 rounded-full bg-[#00C4B3] mr-2"></span>
+                    Now serving 1000+ businesses
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0A2540] leading-tight">
+                    Power your VTU business with seamless APIs
+                </h1>
+
+                <p class="text-lg text-gray-600 max-w-lg">
+                    Connect to airtime, data, electricity & more — instantly. Build,
+                    scale, and manage your VTU platform with our reliable,
+                    developer-friendly API.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="/signup">
+                        <button
+                            class="bg-[#00C4B3] text-white px-6 py-3 rounded-md hover:bg-[#0A2540] transition-colors font-medium text-lg">
+                            Create Free Account
+                        </button>
+                    </a>
+                    <a href="/docs">
+                        <button
+                            class="border border-[#00C4B3] text-[#00C4B3] hover:bg-[#00C4B3] hover:text-white transition-colors px-6 py-3 rounded-md font-medium text-lg inline-flex items-center group">
+                            View API Docs
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Developer Avatars -->
+                <div class="flex items-center space-x-6 pt-6">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                        <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                        <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                        <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        <span class="font-semibold">500+</span> developers trust PayGate API
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Code Preview -->
+            <div class="relative">
+                <div class="relative bg-[#F5F7FA] rounded-xl p-4 shadow-lg">
+                    <div class="bg-[#0A2540] rounded-lg p-4 font-mono text-sm text-white overflow-hidden">
+                        <div class="flex items-center mb-4">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            </div>
+                        </div>
+                        <pre class="text-xs sm:text-sm">
+<code class="language-javascript">// Initialize the PayGate API
+const paygate = new PayGate({
+  apiKey: 'your_api_key'
+});
+// Purchase airtime
+const response = await paygate.vtu.airtime({
+  phone: '08012345678',
+  amount: 1000,
+  provider: 'mtn'
+});
+// Success!
+console.log(response.data);</code>
+            </pre>
+                    </div>
+                </div>
+
+                <!-- Floating Elements -->
+                <div class="absolute -top-6 -right-6 w-20 h-20 bg-[#00C4B3]/20 rounded-lg blur-xl"></div>
+                <div class="absolute -bottom-6 -left-6 w-20 h-20 bg-[#0A2540]/20 rounded-lg blur-xl"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trusted By Logos -->
+    <div class="border-t border-gray-100">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm font-medium text-gray-500 mb-6">
+                TRUSTED BY INNOVATIVE COMPANIES
+            </p>
+            <div
+                class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-items-center opacity-70">
+                <div class="h-6 w-24 bg-gray-300 rounded"></div>
+                <div class="h-6 w-24 bg-gray-300 rounded"></div>
+                <div class="h-6 w-24 bg-gray-300 rounded"></div>
+                <div class="h-6 w-24 bg-gray-300 rounded"></div>
+                <div class="h-6 w-24 bg-gray-300 rounded"></div>
+            </div>
+        </div>
+    </div>
+</section>
