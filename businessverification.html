@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Business Verification | PayGate API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-[#F5F7FA] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="flex justify-center">
+            <a href="/" class="flex items-center">
+                <div class="h-10 w-10 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-[#0A2540] font-bold text-2xl">PayGate API</span>
+            </a>
+        </div>
+        <h2 class="mt-6 text-center text-3xl font-bold text-[#0A2540]">Verify Your Business</h2>
+        <p class="mt-2 text-center text-sm text-gray-600">
+            Complete these steps to verify your business and start using PayGate API
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-3xl w-full px-4">
+        <!-- Progress Steps -->
+        <div class="mb-8 px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col items-center">
+                    <div id="step1-indicator"
+                        class="w-10 h-10 rounded-full flex items-center justify-center bg-[#00C4B3] text-white">
+                        <!-- Building icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 21V7a1 1 0 011-1h3v16H4a1 1 0 01-1-1zM14 21V3h3a1 1 0 011 1v16h-4zM7 10h6M7 14h6" />
+                        </svg>
+                    </div>
+                    <span class="text-xs mt-2 text-gray-600">Business</span>
+                </div>
+
+                <div id="bar1" class="flex-1 h-1 mx-2 bg-[#00C4B3]"></div>
+
+                <div class="flex flex-col items-center">
+                    <div id="step2-indicator"
+                        class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 text-gray-500">
+                        <!-- User icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M16 11c1.657 0 3-1.343 3-3S17.657 5 16 5s-3 1.343-3 3 1.343 3 3 3zM4 20v-1a4 4 0 014-4h0a4 4 0 014 4v1" />
+                        </svg>
+                    </div>
+                    <span class="text-xs mt-2 text-gray-600">Identity</span>
+                </div>
+
+                <div id="bar2" class="flex-1 h-1 mx-2 bg-gray-200"></div>
+
+                <div class="flex flex-col items-center">
+                    <div id="step3-indicator"
+                        class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 text-gray-500">
+                        <!-- Map pin icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5s-3 1.343-3 3 1.343 3 3 3zM12 21s7-4.5 7-10a7 7 0 10-14 0c0 5.5 7 10 7 10z" />
+                        </svg>
+                    </div>
+                    <span class="text-xs mt-2 text-gray-600">Address</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form card -->
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form id="verificationForm" novalidate>
+                <!-- Step content container -->
+                <div id="step-content">
+                    <!-- Step 1 (default visible) -->
+                    <div id="step-1" class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Business Details</h3>
+                            <p class="text-sm text-gray-600">Please provide your business registration information</p>
+                        </div>
+
+                        <div>
+                            <label for="businessName" class="block text-sm font-medium text-gray-700">Business
+                                Name</label>
+                            <div class="mt-1">
+                                <input id="businessName" name="businessName" type="text"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                <p id="err-businessName" class="mt-1 text-sm text-red-600 hidden"></p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="registrationNumber" class="block text-sm font-medium text-gray-700">CAC
+                                Registration Number</label>
+                            <div class="mt-1">
+                                <input id="registrationNumber" name="registrationNumber" type="text"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                <p id="err-registrationNumber" class="mt-1 text-sm text-red-600 hidden"></p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="registrationDate" class="block text-sm font-medium text-gray-700">Registration
+                                Date</label>
+                            <div class="mt-1">
+                                <input id="registrationDate" name="registrationDate" type="date"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="businessType" class="block text-sm font-medium text-gray-700">Business
+                                Type</label>
+                            <div class="mt-1">
+                                <select id="businessType" name="businessType"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                                    <option value="">Select business type</option>
+                                    <option value="soleProprietorship">Sole Proprietorship</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="limitedLiability">Limited Liability Company</option>
+                                    <option value="corporation">Corporation</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="industry" class="block text-sm font-medium text-gray-700">Industry</label>
+                            <div class="mt-1">
+                                <select id="industry" name="industry"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                                    <option value="">Select industry</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="education">Education</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="telecommunications">Telecommunications</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Upload CAC Certificate</label>
+                            <div class="mt-1">
+                                <div
+                                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center w-full">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M7 16v-2a4 4 0 014-4h2a4 4 0 014 4v2M7 8h10M7 8v-2a3 3 0 00-3-3H5M17 8v-2a3 3 0 013-3h-1" />
+                                        </svg>
+                                        <div class="flex text-sm text-gray-600 justify-center">
+                                            <label for="cacDocument"
+                                                class="relative cursor-pointer rounded-md font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+                                                <span>Upload a file</span>
+                                                <input id="cacDocument" name="cacDocument" type="file"
+                                                    accept=".pdf,.jpg,.jpeg,.png" class="sr-only" />
+                                            </label>
+                                            <p class="pl-1">or drag and drop</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500">PDF, JPG, PNG up to 10MB</p>
+                                        <p id="cacName" class="text-sm text-gray-700 truncate hidden"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="step-2" class="space-y-6 hidden">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Identity Verification</h3>
+                            <p class="text-sm text-gray-600">Please provide identification details for the business
+                                director/owner</p>
+                        </div>
+
+                        <div>
+                            <label for="directorName" class="block text-sm font-medium text-gray-700">Director/Owner
+                                Full Name</label>
+                            <div class="mt-1">
+                                <input id="directorName" name="directorName" type="text"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                <p id="err-directorName" class="mt-1 text-sm text-red-600 hidden"></p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="idType" class="block text-sm font-medium text-gray-700">ID Type</label>
+                            <div class="mt-1">
+                                <select id="idType" name="idType"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                                    <option value="nationalID">National ID</option>
+                                    <option value="driverLicense">Driver's License</option>
+                                    <option value="passport">International Passport</option>
+                                    <option value="votersCard">Voter's Card</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="idNumber" class="block text-sm font-medium text-gray-700">ID Number</label>
+                            <div class="mt-1">
+                                <input id="idNumber" name="idNumber" type="text"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                <p id="err-idNumber" class="mt-1 text-sm text-red-600 hidden"></p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Upload ID Document</label>
+                            <div class="mt-1">
+                                <div
+                                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center w-full">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M7 16v-2a4 4 0 014-4h2a4 4 0 014 4v2M7 8h10M7 8v-2a3 3 0 00-3-3H5M17 8v-2a3 3 0 013-3h-1" />
+                                        </svg>
+                                        <div class="flex text-sm text-gray-600 justify-center">
+                                            <label for="idDocument"
+                                                class="relative cursor-pointer rounded-md font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+                                                <span>Upload a file</span>
+                                                <input id="idDocument" name="idDocument" type="file"
+                                                    accept=".pdf,.jpg,.jpeg,.png" class="sr-only" />
+                                            </label>
+                                            <p class="pl-1">or drag and drop</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500">PDF, JPG, PNG up to 10MB</p>
+                                        <p id="idName" class="text-sm text-gray-700 truncate hidden"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="step-3" class="space-y-6 hidden">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Proof of Address</h3>
+                            <p class="text-sm text-gray-600">Please provide your business address details and proof of
+                                address</p>
+                        </div>
+
+                        <div>
+                            <label for="businessAddress" class="block text-sm font-medium text-gray-700">Business
+                                Address</label>
+                            <div class="mt-1">
+                                <input id="businessAddress" name="businessAddress" type="text"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                <p id="err-businessAddress" class="mt-1 text-sm text-red-600 hidden"></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                            <div>
+                                <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                                <div class="mt-1">
+                                    <input id="city" name="city" type="text"
+                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+                                <div class="mt-1">
+                                    <input id="state" name="state" type="text"
+                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
+                            <div class="mt-1">
+                                <input id="postalCode" name="postalCode" type="text"
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Upload Proof of Address</label>
+                            <p class="text-xs text-gray-500 mt-1">Utility bill, bank statement, or lease agreement (not
+                                older than 3 months)</p>
+                            <div class="mt-1">
+                                <div
+                                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center w-full">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M7 16v-2a4 4 0 014-4h2a4 4 0 014 4v2M7 8h10M7 8v-2a3 3 0 00-3-3H5M17 8v-2a3 3 0 013-3h-1" />
+                                        </svg>
+                                        <div class="flex text-sm text-gray-600 justify-center">
+                                            <label for="proofOfAddress"
+                                                class="relative cursor-pointer rounded-md font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+                                                <span>Upload a file</span>
+                                                <input id="proofOfAddress" name="proofOfAddress" type="file"
+                                                    accept=".pdf,.jpg,.jpeg,.png" class="sr-only" />
+                                            </label>
+                                            <p class="pl-1">or drag and drop</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500">PDF, JPG, PNG up to 10MB</p>
+                                        <p id="proofName" class="text-sm text-gray-700 truncate hidden"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-8 flex justify-between">
+                    <div>
+                        <button id="backBtn" type="button"
+                            class="hidden inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            <!-- ArrowLeft -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Back
+                        </button>
+                    </div>
+
+                    <div>
+                        <button id="nextBtn" type="button"
+                            class="inline-flex items-center px-4 py-2 bg-[#00C4B3] text-white rounded-md hover:bg-[#0A2540]">
+                            Next
+                            <!-- ArrowRight -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        <button id="submitBtn" type="submit"
+                            class="hidden inline-flex items-center px-4 py-2 bg-[#0A2540] text-white rounded-md hover:bg-[#0A2540]/90">
+                            <svg id="submit-loader" class="hidden animate-spin mr-2 h-4 w-4"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="3"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                            Complete Verification
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 12l2 2 4-4" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // State
+            let currentStep = 1;
+            const maxStep = 3;
+            const form = document.getElementById('verificationForm');
+
+            // Elements
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const step3 = document.getElementById('step-3');
+
+            const step1Indicator = document.getElementById('step1-indicator');
+            const step2Indicator = document.getElementById('step2-indicator');
+            const step3Indicator = document.getElementById('step3-indicator');
+
+            const bar1 = document.getElementById('bar1');
+            const bar2 = document.getElementById('bar2');
+
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitLoader = document.getElementById('submit-loader');
+
+            // Inputs & error nodes
+            const inputs = {
+                businessName: document.getElementById('businessName'),
+                registrationNumber: document.getElementById('registrationNumber'),
+                registrationDate: document.getElementById('registrationDate'),
+                businessType: document.getElementById('businessType'),
+                industry: document.getElementById('industry'),
+                cacDocument: document.getElementById('cacDocument'),
+
+                directorName: document.getElementById('directorName'),
+                idType: document.getElementById('idType'),
+                idNumber: document.getElementById('idNumber'),
+                idDocument: document.getElementById('idDocument'),
+
+                businessAddress: document.getElementById('businessAddress'),
+                city: document.getElementById('city'),
+                state: document.getElementById('state'),
+                postalCode: document.getElementById('postalCode'),
+                proofOfAddress: document.getElementById('proofOfAddress')
+            };
+
+            const errors = {
+                businessName: document.getElementById('err-businessName'),
+                registrationNumber: document.getElementById('err-registrationNumber'),
+                directorName: document.getElementById('err-directorName'),
+                idNumber: document.getElementById('err-idNumber'),
+                businessAddress: document.getElementById('err-businessAddress')
+            };
+
+            // File name displays
+            const cacName = document.getElementById('cacName');
+            const idName = document.getElementById('idName');
+            const proofName = document.getElementById('proofName');
+
+            // Helpers
+            function showStep(step) {
+                step1.classList.add('hidden');
+                step2.classList.add('hidden');
+                step3.classList.add('hidden');
+
+                step1Indicator.classList.remove('bg-[#00C4B3]', 'text-white');
+                step1Indicator.classList.add('bg-gray-200', 'text-gray-500');
+                step2Indicator.classList.remove('bg-[#00C4B3]', 'text-white');
+                step2Indicator.classList.add('bg-gray-200', 'text-gray-500');
+                step3Indicator.classList.remove('bg-[#00C4B3]', 'text-white');
+                step3Indicator.classList.add('bg-gray-200', 'text-gray-500');
+
+                bar1.classList.remove('bg-[#00C4B3]');
+                bar2.classList.remove('bg-[#00C4B3]');
+
+                if (step === 1) {
+                    step1.classList.remove('hidden');
+                    step1Indicator.classList.add('bg-[#00C4B3]', 'text-white');
+                    bar1.classList.add('bg-[#00C4B3]');
+                    backBtn.classList.add('hidden');
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                } else if (step === 2) {
+                    step2.classList.remove('hidden');
+                    step2Indicator.classList.add('bg-[#00C4B3]', 'text-white');
+                    bar1.classList.add('bg-[#00C4B3]');
+                    backBtn.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                } else if (step === 3) {
+                    step3.classList.remove('hidden');
+                    step3Indicator.classList.add('bg-[#00C4B3]', 'text-white');
+                    bar1.classList.add('bg-[#00C4B3]');
+                    bar2.classList.add('bg-[#00C4B3]');
+                    backBtn.classList.remove('hidden');
+                    nextBtn.classList.add('hidden');
+                    submitBtn.classList.remove('hidden');
+                }
+            }
+
+            function validateStep(step) {
+                // clear previous errors
+                Object.values(errors).forEach(el => el && (el.textContent = '', el.classList.add('hidden')));
+
+                let valid = true;
+                if (step === 1) {
+                    if (!inputs.businessName.value.trim()) {
+                        errors.businessName.textContent = 'Business name is required';
+                        errors.businessName.classList.remove('hidden');
+                        valid = false;
+                    }
+                    if (!inputs.registrationNumber.value.trim()) {
+                        errors.registrationNumber.textContent = 'Registration number is required';
+                        errors.registrationNumber.classList.remove('hidden');
+                        valid = false;
+                    }
+                } else if (step === 2) {
+                    if (!inputs.directorName.value.trim()) {
+                        errors.directorName.textContent = 'Director name is required';
+                        errors.directorName.classList.remove('hidden');
+                        valid = false;
+                    }
+                    if (!inputs.idNumber.value.trim()) {
+                        errors.idNumber.textContent = 'ID number is required';
+                        errors.idNumber.classList.remove('hidden');
+                        valid = false;
+                    }
+                } else if (step === 3) {
+                    if (!inputs.businessAddress.value.trim()) {
+                        errors.businessAddress.textContent = 'Business address is required';
+                        errors.businessAddress.classList.remove('hidden');
+                        valid = false;
+                    }
+                }
+                return valid;
+            }
+
+            // File input change handlers to show filename
+            inputs.cacDocument.addEventListener('change', (e) => {
+                const f = e.target.files[0];
+                if (f) {
+                    cacName.textContent = f.name;
+                    cacName.classList.remove('hidden');
+                } else {
+                    cacName.textContent = '';
+                    cacName.classList.add('hidden');
+                }
+            });
+
+            inputs.idDocument.addEventListener('change', (e) => {
+                const f = e.target.files[0];
+                if (f) {
+                    idName.textContent = f.name;
+                    idName.classList.remove('hidden');
+                } else {
+                    idName.textContent = '';
+                    idName.classList.add('hidden');
+                }
+            });
+
+            inputs.proofOfAddress.addEventListener('change', (e) => {
+                const f = e.target.files[0];
+                if (f) {
+                    proofName.textContent = f.name;
+                    proofName.classList.remove('hidden');
+                } else {
+                    proofName.textContent = '';
+                    proofName.classList.add('hidden');
+                }
+            });
+
+            // Buttons
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    currentStep = Math.min(currentStep + 1, maxStep);
+                    showStep(currentStep);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            backBtn.addEventListener('click', () => {
+                currentStep = Math.max(currentStep - 1, 1);
+                showStep(currentStep);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validateStep(currentStep)) return;
+
+                // simulate API submit
+                submitBtn.disabled = true;
+                submitLoader.classList.remove('hidden');
+                submitBtn.classList.add('opacity-70');
+
+                setTimeout(() => {
+                    // finished
+                    submitLoader.classList.add('hidden');
+                    submitBtn.classList.remove('opacity-70');
+                    // redirect to /dashboard (simulate)
+                    window.location.href = '/dashboard';
+                }, 2000);
+            });
+
+            // initial render
+            showStep(currentStep);
+
+            // small UX: clear error on input
+            Object.values(inputs).forEach(inp => {
+                if (!inp) return;
+                inp.addEventListener('input', () => {
+                    const name = inp.name;
+                    if (errors[name]) {
+                        errors[name].textContent = '';
+                        errors[name].classList.add('hidden');
+                    }
+                });
+            });
+
+            // support keyboard "Enter" to move to next on inputs (optional)
+            document.querySelectorAll('#step-1 input, #step-2 input, #step-3 input, #step-1 select, #step-2 select, #step-3 select').forEach(el => {
+                el.addEventListener('keydown', (ev) => {
+                    if (ev.key === 'Enter') {
+                        ev.preventDefault();
+                        if (currentStep < maxStep) nextBtn.click();
+                        else submitBtn.click();
+                    }
+                });
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
