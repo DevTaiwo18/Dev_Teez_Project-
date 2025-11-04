@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | PayGate API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-50">
+    <!-- Mobile Sidebar -->
+    <div id="mobileSidebar" class="fixed inset-0 z-50 hidden lg:hidden">
+        <div class="fixed inset-0 bg-gray-600 bg-opacity-75" onclick="toggleSidebar(false)"></div>
+
+        <div class="fixed inset-y-0 left-0 flex flex-col w-64 max-w-xs bg-[#0A2540] overflow-y-auto">
+            <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
+                <div class="flex items-center">
+                    <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                    <span class="text-white font-bold text-xl">PayGate</span>
+                </div>
+                <button onclick="toggleSidebar(false)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="flex-1 px-4 py-4 text-gray-300">
+                <a href="#"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8m5-5h3m-3 0v5a2 2 0 002 2h3a2 2 0 002-2v-5" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16h16V4H4z" />
+                    </svg>
+                    Transactions
+                </a>
+                <a href="#"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.105 0-2 .895-2 2v6h4v-6c0-1.105-.895-2-2-2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18h12v2H6z" />
+                    </svg>
+                    Wallet
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Desktop Sidebar -->
+    <div class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:bg-[#0A2540]">
+        <div class="flex items-center h-16 px-4 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-white font-bold text-xl">PayGate</span>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-4 text-gray-300">
+            <a href="#"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8m5-5h3m-3 0v5a2 2 0 002 2h3a2 2 0 002-2v-5" />
+                </svg>
+                Dashboard
+            </a>
+            <a href="#"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16h16V4H4z" />
+                </svg>
+                Transactions
+            </a>
+            <a href="#"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8c-1.105 0-2 .895-2 2v6h4v-6c0-1.105-.895-2-2-2z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18h12v2H6z" />
+                </svg>
+                Wallet
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="lg:pl-64 flex flex-col flex-1">
+        <header class="bg-white shadow-sm z-10">
+            <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+                <button class="lg:hidden text-gray-500 focus:outline-none" onclick="toggleSidebar(true)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+                    <div class="max-w-lg w-full lg:max-w-xs relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.35 4.35a7.5 7.5 0 0012.3 12.3z" />
+                            </svg>
+                        </div>
+                        <input type="search" placeholder="Search"
+                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm" />
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-700">JD</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+
+                <!-- Overview Cards -->
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mt-6">
+                    <!-- Card -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-[#00C4B3]/10 rounded-md p-3 text-[#00C4B3]">
+                                    💳
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <p class="text-sm font-medium text-gray-500">
+                                        Total Transactions
+                                    </p>
+                                    <p class="text-2xl font-semibold text-gray-900">₦0.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                            <a href="#" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">View all</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3 text-indigo-600">
+                                    👥
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <p class="text-sm font-medium text-gray-500">
+                                        Total Customers
+                                    </p>
+                                    <p class="text-2xl font-semibold text-gray-900">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                            <a href="#" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">View all</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-green-100 rounded-md p-3 text-green-600">
+                                    📊
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <p class="text-sm font-medium text-gray-500">
+                                        Conversion Rate
+                                    </p>
+                                    <p class="text-2xl font-semibold text-gray-900">0%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-4 sm:px-6">
+                            <a href="#" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">View report</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification -->
+                <div class="bg-white overflow-hidden shadow rounded-lg mt-5 p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Your Business is Being Verified
+                    </h3>
+                    <p class="mt-2 text-sm text-gray-500 max-w-xl">
+                        We're currently reviewing your business verification documents.
+                        This process typically takes 1–2 business days.
+                    </p>
+                    <div class="mt-5">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-[#00C4B3] h-2.5 rounded-full w-2/3"></div>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Verification in progress (2/3 steps completed)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Get Started -->
+                <div class="bg-white overflow-hidden shadow rounded-lg mt-5 p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Get Started with PayGate API
+                    </h3>
+                    <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        <div class="bg-gray-50 overflow-hidden rounded-lg border border-gray-200 p-6">
+                            <h4 class="text-base font-medium text-gray-900">
+                                Generate API Keys
+                            </h4>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Create API keys to authenticate your requests
+                            </p>
+                            <a href="#" class="mt-3 inline-flex items-center text-sm font-medium text-[#00C4B3]">Get API
+                                Keys</a>
+                        </div>
+
+                        <div class="bg-gray-50 overflow-hidden rounded-lg border border-gray-200 p-6">
+                            <h4 class="text-base font-medium text-gray-900">
+                                Read Documentation
+                            </h4>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Learn how to integrate PayGate API with your app
+                            </p>
+                            <a href="#" class="mt-3 inline-flex items-center text-sm font-medium text-[#00C4B3]">View
+                                Docs</a>
+                        </div>
+
+                        <div class="bg-gray-50 overflow-hidden rounded-lg border border-gray-200 p-6">
+                            <h4 class="text-base font-medium text-gray-900">
+                                Test Integration
+                            </h4>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Make test API calls to ensure your integration works
+                            </p>
+                            <a href="#" class="mt-3 inline-flex items-center text-sm font-medium text-[#00C4B3]">Start
+                                Testing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar(show) {
+            const sidebar = document.getElementById("mobileSidebar");
+            if (show) sidebar.classList.remove("hidden");
+            else sidebar.classList.add("hidden");
+        }
+    </script>
+</body>
+
+</html>
