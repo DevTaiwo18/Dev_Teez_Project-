@@ -110,7 +110,6 @@
 
     <script>
         const form = document.getElementById('login-form');
-        const errorMsg = document.getElementById('error-message');
         const btnText = document.getElementById('btn-text');
         const btnLoader = document.getElementById('btn-loader');
 
@@ -120,9 +119,7 @@
             btnLoader.classList.remove('hidden');
 
             setTimeout(() => {
-                btnLoader.classList.add('hidden');
-                btnText.classList.remove('hidden');
-                errorMsg.classList.remove('hidden');
+                window.location.href = './dashboard/dashboard-home.html';
             }, 1500);
         });
     </script>
