@@ -21,114 +21,113 @@
 <body class="flex flex-col min-h-screen w-full bg-white">
     <!-- Navbar -->
     <section id="navbar">
-        <<!-- Navbar.html (with functional mobile toggle) -->
-            <nav id="navbar"
-                class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-md transition-all duration-300 shadow-sm">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex items-center justify-between h-16 md:h-20">
-                        <!-- Logo -->
-                        <div class="flex-shrink-0 flex items-center">
-                            <div class="flex items-center">
-                                <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
-                                <span class="text-[#0A2540] font-bold text-xl">PayGate API</span>
-                            </div>
+        <nav id="navbar"
+            class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-md transition-all duration-300 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16 md:h-20">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex items-center">
+                            <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                            <span class="text-[#0A2540] font-bold text-xl">PayGate API</span>
                         </div>
+                    </div>
 
-                        <!-- Desktop Menu -->
-                        <div class="hidden md:block">
-                            <div class="ml-10 flex items-center space-x-8">
-                                <a href="#home"
-                                    class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Home</a>
-                                <a href="#features"
-                                    class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Features</a>
-                                <a href="#pricing"
-                                    class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Pricing</a>
-                                <a href="/docs"
-                                    class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Docs</a>
-                            </div>
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-center space-x-8">
+                            <a href="#home"
+                                class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Home</a>
+                            <a href="#features"
+                                class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Features</a>
+                            <a href="#pricing"
+                                class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Pricing</a>
+                            <a href="#"
+                                class="text-[#0A2540] hover:text-[#00C4B3] transition-colors font-medium">Docs</a>
                         </div>
+                    </div>
 
-                        <!-- CTA Buttons (Desktop) -->
-                        <div class="hidden md:flex items-center space-x-4">
-                            <a href="./login.html">
-                                <button
-                                    class="border border-[#00C4B3] text-[#00C4B3] hover:bg-[#00C4B3] hover:text-white transition-colors px-4 py-2 rounded-md font-medium">
-                                    Log In
-                                </button>
-                            </a>
-                            <a href="./signup.html">
-                                <button
-                                    class="bg-[#00C4B3] text-white px-4 py-2 rounded-md hover:bg-[#0A2540] transition-colors font-medium">
-                                    Sign Up
-                                </button>
-                            </a>
-                        </div>
-
-                        <!-- Mobile Menu Button -->
-                        <div class="md:hidden">
-                            <button id="menu-btn"
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#00C4B3] focus:outline-none transition-all">
-                                <!-- Menu icon -->
-                                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-
-                                <!-- Close icon -->
-                                <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                    <!-- CTA Buttons (Desktop) -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="./login.html">
+                            <button
+                                class="border border-[#00C4B3] text-[#00C4B3] hover:bg-[#00C4B3] hover:text-white transition-colors px-4 py-2 rounded-md font-medium">
+                                Log In
                             </button>
-                        </div>
+                        </a>
+                        <a href="./signup.html">
+                            <button
+                                class="bg-[#00C4B3] text-white px-4 py-2 rounded-md hover:bg-[#0A2540] transition-colors font-medium">
+                                Sign Up
+                            </button>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="menu-btn"
+                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#00C4B3] focus:outline-none transition-all">
+                            <!-- Menu icon -->
+                            <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+
+                            <!-- Close icon -->
+                            <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Mobile Menu -->
-                <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-                    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <a href="#home"
-                            class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Home</a>
-                        <a href="#features"
-                            class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Features</a>
-                        <a href="#pricing"
-                            class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Pricing</a>
-                        <a href="/docs"
-                            class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Docs</a>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#home"
+                        class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Home</a>
+                    <a href="#features"
+                        class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Features</a>
+                    <a href="#pricing"
+                        class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Pricing</a>
+                    <a href="/docs"
+                        class="block px-3 py-2 rounded-md text-base font-medium text-[#0A2540] hover:bg-gray-50">Docs</a>
 
-                        <div class="pt-4 pb-3 border-t border-gray-200">
-                            <a href="/login" class="w-full block mb-2">
-                                <button
-                                    class="w-full border border-[#00C4B3] text-[#00C4B3] hover:bg-[#00C4B3] hover:text-white transition-colors px-4 py-2 rounded-md font-medium">
-                                    Log In
-                                </button>
-                            </a>
-                            <a href="/signup" class="w-full block">
-                                <button
-                                    class="w-full bg-[#00C4B3] text-white px-4 py-2 rounded-md hover:bg-[#0A2540] transition-colors font-medium">
-                                    Sign Up
-                                </button>
-                            </a>
-                        </div>
+                    <div class="pt-4 pb-3 border-t border-gray-200">
+                        <a href="/login" class="w-full block mb-2">
+                            <button
+                                class="w-full border border-[#00C4B3] text-[#00C4B3] hover:bg-[#00C4B3] hover:text-white transition-colors px-4 py-2 rounded-md font-medium">
+                                Log In
+                            </button>
+                        </a>
+                        <a href="/signup" class="w-full block">
+                            <button
+                                class="w-full bg-[#00C4B3] text-white px-4 py-2 rounded-md hover:bg-[#0A2540] transition-colors font-medium">
+                                Sign Up
+                            </button>
+                        </a>
                     </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-            <!-- JS for mobile toggle -->
-            <script>
-                const menuBtn = document.getElementById('menu-btn');
-                const mobileMenu = document.getElementById('mobile-menu');
-                const menuIcon = document.getElementById('menu-icon');
-                const closeIcon = document.getElementById('close-icon');
+        <!-- JS for mobile toggle -->
+        <script>
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
 
-                menuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                    menuIcon.classList.toggle('hidden');
-                    closeIcon.classList.toggle('hidden');
-                });
-            </script>
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        </script>
 
     </section>
 
