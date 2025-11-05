@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wallet | PayGate API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-50">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 hidden lg:hidden" aria-hidden="true">
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <aside id="mobileSidebar"
+        class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0A2540] transform -translate-x-full transition-transform duration-300 lg:hidden"
+        aria-label="Mobile sidebar">
+        <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-white font-bold text-xl">PayGate</span>
+            </div>
+            <button id="closeSidebarBtn" aria-label="Close sidebar" class="p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="flex-1 px-4 py-4 text-gray-300 overflow-y-auto">
+            <a href="/dashboard"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8"></path>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="/dashboard/transactions"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Transactions
+            </a>
+
+            <a href="/dashboard/wallet"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v2"></path>
+                    <rect x="3" y="11" width="18" height="6" rx="2"></rect>
+                </svg>
+                Wallet
+            </a>
+
+            <a href="/dashboard/ips"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span class="ml-0">🌐</span>
+                <span class="ml-3">IPs</span>
+            </a>
+
+            <a href="/dashboard/services"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                Services
+            </a>
+
+            <a href="/dashboard/analytics"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>📊</span>
+                <span class="ml-3">Analytics</span>
+            </a>
+
+            <a href="/dashboard/customers"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>👥</span>
+                <span class="ml-3">Customers</span>
+            </a>
+
+            <a href="/dashboard/settings"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>⚙️</span>
+                <span class="ml-3">Settings</span>
+            </a>
+
+            <a href="/dashboard/support"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>❓</span>
+                <span class="ml-3">Help & Support</span>
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-700">
+                <a href="/"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-[#00C4B3]/10 hover:text-white">
+                    <span>🚪</span>
+                    <span class="ml-3">Log Out</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Desktop Sidebar -->
+    <aside class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:bg-[#0A2540]"
+        aria-label="Desktop sidebar">
+        <div class="flex items-center h-16 px-4 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-white font-bold text-xl">PayGate</span>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 py-4 text-gray-300 overflow-y-auto">
+            <a href="/dashboard"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8"></path>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="/dashboard/transactions"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Transactions
+            </a>
+
+            <a href="/dashboard/wallet"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v2"></path>
+                    <rect x="3" y="11" width="18" height="6" rx="2"></rect>
+                </svg>
+                Wallet
+            </a>
+
+            <a href="/dashboard/ips"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>🌐</span>
+                <span class="ml-3">IPs</span>
+            </a>
+
+            <a href="/dashboard/services"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                Services
+            </a>
+
+            <a href="/dashboard/analytics"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>📊</span>
+                <span class="ml-3">Analytics</span>
+            </a>
+
+            <a href="/dashboard/customers"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>👥</span>
+                <span class="ml-3">Customers</span>
+            </a>
+
+            <a href="/dashboard/settings"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>⚙️</span>
+                <span class="ml-3">Settings</span>
+            </a>
+
+            <a href="/dashboard/support"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>❓</span>
+                <span class="ml-3">Help & Support</span>
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-700">
+                <a href="/"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-[#00C4B3]/10 hover:text-white">
+                    <span>🚪</span>
+                    <span class="ml-3">Log Out</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="lg:pl-64 flex flex-col flex-1">
+        <header class="bg-white shadow-sm z-10">
+            <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+                <button id="openSidebarBtn" class="lg:hidden text-gray-500 focus:outline-none"
+                    aria-label="Open sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+                    <div class="max-w-lg w-full lg:max-w-xs relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <path d="M21 21l-4.35-4.35"></path>
+                            </svg>
+                        </div>
+                        <input type="search" placeholder="Search"
+                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-700">JD</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 py-6">
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-2xl font-semibold text-gray-900">Wallet</h1>
+                <p class="mt-1 text-sm text-gray-500">Manage your funds and track your transactions</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+                <!-- Tabs -->
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8" id="walletTabs">
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-[#00C4B3] text-[#00C4B3]"
+                            data-tab="overview">Overview</button>
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                            data-tab="fund">Fund Wallet</button>
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                            data-tab="withdraw">Withdraw</button>
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                            data-tab="history">Transaction History</button>
+                    </nav>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="mt-6">
+                    <!-- Overview -->
+                    <div class="tab-content" id="overview">
+                        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                            <!-- Balance Card -->
+                            <div class="bg-white overflow-hidden shadow rounded-lg">
+                                <div class="p-5">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 bg-[#00C4B3]/10 rounded-md p-3">💳</div>
+                                        <div class="ml-5 w-0 flex-1">
+                                            <dl>
+                                                <dt class="text-sm font-medium text-gray-500 truncate">Available Balance
+                                                </dt>
+                                                <dd>
+                                                    <div class="text-2xl font-semibold text-gray-900">₦250,000.00</div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 px-5 py-3 flex items-center justify-between">
+                                    <div class="text-sm text-gray-500">Pending: ₦15,000.00</div>
+                                    <button
+                                        class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-[#00C4B3] bg-white hover:bg-gray-50">
+                                        🔄 Refresh
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="bg-white overflow-hidden shadow rounded-lg">
+                                <div class="p-5">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">Quick Actions</h3>
+                                    <div class="mt-4 grid grid-cols-2 gap-4">
+                                        <button onclick="showTab('fund')"
+                                            class="inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-[#00C4B3] hover:bg-[#00C4B3]/90">
+                                            ⬇️ Fund Wallet
+                                        </button>
+                                        <button onclick="showTab('withdraw')"
+                                            class="inline-flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                            ⬆️ Withdraw
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Transactions -->
+                            <div class="lg:col-span-2">
+                                <div class="bg-white shadow sm:rounded-lg">
+                                    <div class="px-4 py-5 sm:p-6">
+                                        <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Transactions</h3>
+                                        <div class="mt-4 overflow-x-auto">
+                                            <table class="min-w-full divide-y divide-gray-300">
+                                                <thead>
+                                                    <tr>
+                                                        <th
+                                                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                                            Type</th>
+                                                        <th
+                                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">
+                                                            Amount</th>
+                                                        <th
+                                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">
+                                                            Status</th>
+                                                        <th
+                                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">
+                                                            Date</th>
+                                                        <th
+                                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">
+                                                            Reference</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-gray-200">
+                                                    <tr>
+                                                        <td
+                                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0 flex items-center">
+                                                            ⬇️ <span class="ml-2">deposit</span></td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            ₦100,000.00</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">✅
+                                                            Completed</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            7/15/2023</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            DEP123456</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0 flex items-center">
+                                                            ⬆️ <span class="ml-2">withdrawal</span></td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            ₦50,000.00</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">✅
+                                                            Completed</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            7/14/2023</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            WDR789012</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0 flex items-center">
+                                                            💳 <span class="ml-2">airtime</span></td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            ₦1,000.00</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">✅
+                                                            Completed</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            7/13/2023</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            AIR345678</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0 flex items-center">
+                                                            💳 <span class="ml-2">data</span></td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            ₦2,500.00</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">✅
+                                                            Completed</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            7/12/2023</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            DAT901234</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0 flex items-center">
+                                                            ⬇️ <span class="ml-2">deposit</span></td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            ₦200,000.00</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">⏳
+                                                            Pending</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            7/11/2023</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            DEP567890</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fund Wallet -->
+                    <div class="tab-content hidden" id="fund">
+                        <div class="mt-6 bg-white shadow sm:rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Fund Your Wallet</h3>
+                            <form class="mt-5 space-y-6 max-w-xl">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Amount (NGN)</label>
+                                    <input type="number" placeholder="Enter amount"
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#00C4B3] focus:border-[#00C4B3]" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Payment Method</label>
+                                    <select
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#00C4B3] focus:border-[#00C4B3]">
+                                        <option>Debit Card</option>
+                                        <option>Bank Transfer</option>
+                                        <option>USSD</option>
+                                    </select>
+                                </div>
+                                <button
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#00C4B3] hover:bg-[#00C4B3]/90">
+                                    Proceed to Payment
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Withdraw -->
+                    <div class="tab-content hidden" id="withdraw">
+                        <div class="mt-6 bg-white shadow sm:rounded-lg p-6 max-w-xl">
+                            <h3 class="text-lg font-medium text-gray-900">Withdraw Funds</h3>
+                            <form class="mt-5 space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Amount (NGN)</label>
+                                    <input type="number" placeholder="Enter amount"
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#00C4B3] focus:border-[#00C4B3]" />
+                                    <p class="mt-2 text-sm text-gray-500">Available balance: ₦250,000.00</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Bank Name</label>
+                                    <select
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#00C4B3] focus:border-[#00C4B3]">
+                                        <option>Select Bank</option>
+                                        <option>Guaranty Trust Bank</option>
+                                        <option>First Bank</option>
+                                        <option>Zenith Bank</option>
+                                        <option>UBA</option>
+                                        <option>Access Bank</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Account Number</label>
+                                    <input type="text" placeholder="Enter 10-digit account number"
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-[#00C4B3] focus:border-[#00C4B3]" />
+                                </div>
+                                <button
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#00C4B3] hover:bg-[#00C4B3]/90">
+                                    Withdraw Funds
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- History -->
+                    <div class="tab-content hidden" id="history">
+                        <div class="mt-6 bg-white shadow sm:rounded-lg p-6 overflow-x-auto">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Transaction History</h3>
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <thead>
+                                    <tr>
+                                        <th class="py-3 px-3 text-left text-sm font-semibold text-gray-900">Type</th>
+                                        <th class="py-3 px-3 text-left text-sm font-semibold text-gray-900">Amount</th>
+                                        <th class="py-3 px-3 text-left text-sm font-semibold text-gray-900">Status</th>
+                                        <th class="py-3 px-3 text-left text-sm font-semibold text-gray-900">Date</th>
+                                        <th class="py-3 px-3 text-left text-sm font-semibold text-gray-900">Reference
+                                        </th>
+                                        <th class="py-3 px-3 text-left text-sm font-semibold text-gray-900">Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="py-4 px-3 flex items-center">⬇️ <span class="ml-2">deposit</span>
+                                        </td>
+                                        <td class="py-4 px-3 text-gray-500">₦100,000.00</td>
+                                        <td class="py-4 px-3 text-gray-500">✅ Completed</td>
+                                        <td class="py-4 px-3 text-gray-500">7/15/2023</td>
+                                        <td class="py-4 px-3 text-gray-500">DEP123456</td>
+                                        <td class="py-4 px-3 text-gray-500">Bank Transfer</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-3 flex items-center">⬇️ <span class="ml-2">deposit</span>
+                                        </td>
+                                        <td class="py-4 px-3 text-gray-500">₦100,000.00</td>
+                                        <td class="py-4 px-3 text-gray-500">✅ Completed</td>
+                                        <td class="py-4 px-3 text-gray-500">7/15/2023</td>
+                                        <td class="py-4 px-3 text-gray-500">DEP123456</td>
+                                        <td class="py-4 px-3 text-gray-500">Bank Transfer</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-3 flex items-center">⬇️ <span class="ml-2">deposit</span>
+                                        </td>
+                                        <td class="py-4 px-3 text-gray-500">₦100,000.00</td>
+                                        <td class="py-4 px-3 text-gray-500">✅ Completed</td>
+                                        <td class="py-4 px-3 text-gray-500">7/15/2023</td>
+                                        <td class="py-4 px-3 text-gray-500">DEP123456</td>
+                                        <td class="py-4 px-3 text-gray-500">Bank Transfer</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-3 flex items-center">⬇️ <span class="ml-2">deposit</span>
+                                        </td>
+                                        <td class="py-4 px-3 text-gray-500">₦100,000.00</td>
+                                        <td class="py-4 px-3 text-gray-500">✅ Completed</td>
+                                        <td class="py-4 px-3 text-gray-500">7/15/2023</td>
+                                        <td class="py-4 px-3 text-gray-500">DEP123456</td>
+                                        <td class="py-4 px-3 text-gray-500">Bank Transfer</td>
+                                    </tr>
+                                    <!-- Add other transactions similarly -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+
+    <script>
+        // Elements
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const openSidebarBtn = document.getElementById('openSidebarBtn');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+        // Open mobile sidebar
+        function openSidebar() {
+            sidebarOverlay.classList.remove('hidden');
+            mobileSidebar.classList.remove('-translate-x-full');
+            // prevent body scroll when sidebar open
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close mobile sidebar
+        function closeSidebar() {
+            sidebarOverlay.classList.add('hidden');
+            mobileSidebar.classList.add('-translate-x-full');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+        }
+
+        // Toggle wrapper used by inline onclick in header
+        function toggleSidebar(show) {
+            if (show) openSidebar();
+            else closeSidebar();
+        }
+
+        // Hook buttons
+        openSidebarBtn && openSidebarBtn.addEventListener('click', openSidebar);
+        closeSidebarBtn && closeSidebarBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar on Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                showTab(tab.dataset.tab);
+            });
+        });
+
+        function showTab(tabId) {
+            contents.forEach(c => c.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            tabs.forEach(t => {
+                t.classList.remove('border-[#00C4B3]', 'text-[#00C4B3]');
+                t.classList.add('border-transparent', 'text-gray-500');
+            });
+            const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
+            activeBtn.classList.add('border-[#00C4B3]', 'text-[#00C4B3]');
+            activeBtn.classList.remove('border-transparent', 'text-gray-500');
+        }
+
+    </script>
+</body>
+
+</html>
