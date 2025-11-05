@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Support | PayGate API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-50">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 hidden lg:hidden" aria-hidden="true">
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <aside id="mobileSidebar"
+        class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0A2540] transform -translate-x-full transition-transform duration-300 lg:hidden"
+        aria-label="Mobile sidebar">
+        <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-white font-bold text-xl">PayGate</span>
+            </div>
+            <button id="closeSidebarBtn" aria-label="Close sidebar" class="p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="flex-1 px-4 py-4 text-gray-300 overflow-y-auto">
+            <a href="/dashboard"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8"></path>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="/dashboard/transactions"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Transactions
+            </a>
+
+            <a href="/dashboard/wallet"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v2"></path>
+                    <rect x="3" y="11" width="18" height="6" rx="2"></rect>
+                </svg>
+                Wallet
+            </a>
+
+            <a href="/dashboard/ips"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span class="ml-0">🌐</span>
+                <span class="ml-3">IPs</span>
+            </a>
+
+            <a href="/dashboard/services"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                Services
+            </a>
+
+            <a href="/dashboard/analytics"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>📊</span>
+                <span class="ml-3">Analytics</span>
+            </a>
+
+            <a href="/dashboard/customers"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>👥</span>
+                <span class="ml-3">Customers</span>
+            </a>
+
+            <a href="/dashboard/settings"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>⚙️</span>
+                <span class="ml-3">Settings</span>
+            </a>
+
+            <a href="/dashboard/support"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>❓</span>
+                <span class="ml-3">Help & Support</span>
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-700">
+                <a href="/"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-[#00C4B3]/10 hover:text-white">
+                    <span>🚪</span>
+                    <span class="ml-3">Log Out</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Desktop Sidebar -->
+    <aside class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:bg-[#0A2540]"
+        aria-label="Desktop sidebar">
+        <div class="flex items-center h-16 px-4 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="h-8 w-8 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
+                <span class="text-white font-bold text-xl">PayGate</span>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 py-4 text-gray-300 overflow-y-auto">
+            <a href="/dashboard"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8"></path>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="/dashboard/transactions"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Transactions
+            </a>
+
+            <a href="/dashboard/wallet"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v2"></path>
+                    <rect x="3" y="11" width="18" height="6" rx="2"></rect>
+                </svg>
+                Wallet
+            </a>
+
+            <a href="/dashboard/ips"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>🌐</span>
+                <span class="ml-3">IPs</span>
+            </a>
+
+            <a href="/dashboard/services"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                Services
+            </a>
+
+            <a href="/dashboard/analytics"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>📊</span>
+                <span class="ml-3">Analytics</span>
+            </a>
+
+            <a href="/dashboard/customers"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>👥</span>
+                <span class="ml-3">Customers</span>
+            </a>
+
+            <a href="/dashboard/settings"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>⚙️</span>
+                <span class="ml-3">Settings</span>
+            </a>
+
+            <a href="/dashboard/support"
+                class="group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-[#00C4B3]/10 hover:text-white">
+                <span>❓</span>
+                <span class="ml-3">Help & Support</span>
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-700">
+                <a href="/"
+                    class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-[#00C4B3]/10 hover:text-white">
+                    <span>🚪</span>
+                    <span class="ml-3">Log Out</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="lg:pl-64 flex flex-col flex-1">
+        <header class="bg-white shadow-sm z-10">
+            <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+                <button id="openSidebarBtn" class="lg:hidden text-gray-500 focus:outline-none"
+                    aria-label="Open sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+                    <div class="max-w-lg w-full lg:max-w-xs relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <path d="M21 21l-4.35-4.35"></path>
+                            </svg>
+                        </div>
+                        <input type="search" placeholder="Search"
+                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-700">JD</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-2xl font-semibold text-gray-900">Help & Support</h1>
+                <p class="mt-1 text-sm text-gray-500">
+                    Find answers, browse documentation, or contact our support team
+                </p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+                <!-- Tabs -->
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8" id="tabs">
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-[#00C4B3] text-[#00C4B3]"
+                            data-tab="documentation">Documentation</button>
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                            data-tab="faq">FAQ</button>
+                        <button
+                            class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                            data-tab="contact">Contact Support</button>
+                    </nav>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="mt-6">
+                    <!-- Documentation Tab -->
+                    <div class="tab-content" id="documentation">
+                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                            <!-- Documentation Cards -->
+                            <a href="/docs#getting-started"
+                                class="group relative bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="inline-flex rounded-lg p-3 bg-[#00C4B3]/10 text-[#00C4B3]">📖</span>
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-medium text-gray-900 group-hover:text-[#00C4B3]">Getting
+                                        Started</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Learn how to integrate with PayGate API</p>
+                                </div>
+                                <div
+                                    class="mt-4 flex items-center text-sm font-medium text-[#00C4B3] group-hover:text-[#00C4B3]/80">
+                                    <span>View documentation</span> <span class="ml-1">➡️</span>
+                                </div>
+                            </a>
+
+                            <a href="/docs#endpoint-airtime"
+                                class="group relative bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="inline-flex rounded-lg p-3 bg-[#00C4B3]/10 text-[#00C4B3]">📄</span>
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-medium text-gray-900 group-hover:text-[#00C4B3]">API
+                                        Reference</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Detailed API endpoints and parameters</p>
+                                </div>
+                                <div
+                                    class="mt-4 flex items-center text-sm font-medium text-[#00C4B3] group-hover:text-[#00C4B3]/80">
+                                    <span>View documentation</span> <span class="ml-1">➡️</span>
+                                </div>
+                            </a>
+
+                            <a href="/docs#auth-keys"
+                                class="group relative bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="inline-flex rounded-lg p-3 bg-[#00C4B3]/10 text-[#00C4B3]">🔗</span>
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-medium text-gray-900 group-hover:text-[#00C4B3]">
+                                        Authentication</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Secure your API requests</p>
+                                </div>
+                                <div
+                                    class="mt-4 flex items-center text-sm font-medium text-[#00C4B3] group-hover:text-[#00C4B3]/80">
+                                    <span>View documentation</span> <span class="ml-1">➡️</span>
+                                </div>
+                            </a>
+
+                            <a href="/docs#webhooks-setup"
+                                class="group relative bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="inline-flex rounded-lg p-3 bg-[#00C4B3]/10 text-[#00C4B3]">💬</span>
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-medium text-gray-900 group-hover:text-[#00C4B3]">Webhooks
+                                    </h3>
+                                    <p class="mt-1 text-sm text-gray-500">Set up real-time notifications</p>
+                                </div>
+                                <div
+                                    class="mt-4 flex items-center text-sm font-medium text-[#00C4B3] group-hover:text-[#00C4B3]/80">
+                                    <span>View documentation</span> <span class="ml-1">➡️</span>
+                                </div>
+                            </a>
+
+                            <a href="/docs#error-handling"
+                                class="group relative bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="inline-flex rounded-lg p-3 bg-[#00C4B3]/10 text-[#00C4B3]">❗</span>
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-medium text-gray-900 group-hover:text-[#00C4B3]">Error
+                                        Handling</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Manage and troubleshoot errors</p>
+                                </div>
+                                <div
+                                    class="mt-4 flex items-center text-sm font-medium text-[#00C4B3] group-hover:text-[#00C4B3]/80">
+                                    <span>View documentation</span> <span class="ml-1">➡️</span>
+                                </div>
+                            </a>
+
+                            <a href="/docs#sdks"
+                                class="group relative bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="inline-flex rounded-lg p-3 bg-[#00C4B3]/10 text-[#00C4B3]">📄</span>
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-medium text-gray-900 group-hover:text-[#00C4B3]">Sample
+                                        Applications</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Example code in multiple languages</p>
+                                </div>
+                                <div
+                                    class="mt-4 flex items-center text-sm font-medium text-[#00C4B3] group-hover:text-[#00C4B3]/80">
+                                    <span>View documentation</span> <span class="ml-1">➡️</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Additional Resources -->
+                        <div class="mt-10 bg-white shadow overflow-hidden sm:rounded-lg">
+                            <div class="px-4 py-5 sm:px-6">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Additional Resources</h3>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">Helpful tools and guides for developers
+                                </p>
+                            </div>
+                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                                <dl class="sm:divide-y sm:divide-gray-200">
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">Postman Collection</dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <a href="/docs" class="text-[#00C4B3] hover:text-[#00C4B3]/80">Download
+                                                Postman Collection ➡️</a>
+                                        </dd>
+                                    </div>
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">SDKs</dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <a href="/docs#sdks"
+                                                class="text-[#00C4B3] hover:text-[#00C4B3]/80 mr-4">JavaScript ➡️</a>
+                                            <a href="/docs#sdks" class="text-[#00C4B3] hover:text-[#00C4B3]/80 mr-4">PHP
+                                                ➡️</a>
+                                            <a href="/docs#sdks" class="text-[#00C4B3] hover:text-[#00C4B3]/80">Python
+                                                ➡️</a>
+                                        </dd>
+                                    </div>
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">Tutorial Videos</dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <a href="/docs" class="text-[#00C4B3] hover:text-[#00C4B3]/80">View Tutorial
+                                                Series ➡️</a>
+                                        </dd>
+                                    </div>
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">GitHub Repository</dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <a href="/docs" class="text-[#00C4B3] hover:text-[#00C4B3]/80">View Sample
+                                                Code ➡️</a>
+                                        </dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Tab -->
+                    <div class="tab-content hidden" id="faq">
+                        <div class="mb-6">
+                            <input type="text" id="faqSearch" placeholder="Search frequently asked questions..."
+                                class="block w-full pr-10 sm:text-sm border-gray-300 rounded-md focus:ring-[#00C4B3] focus:border-[#00C4B3]">
+                        </div>
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                            <ul class="divide-y divide-gray-200" id="faqList">
+                                <li class="px-4 py-5 sm:px-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">How do I get started with
+                                        PayGate API?</h3>
+                                    <p class="mt-2 text-sm text-gray-500">To get started, complete your business
+                                        verification, generate your API keys in the Settings page, and follow our
+                                        integration guide in the documentation.</p>
+                                </li>
+                                <li class="px-4 py-5 sm:px-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">What payment methods are
+                                        supported?</h3>
+                                    <p class="mt-2 text-sm text-gray-500">PayGate API currently supports airtime top-up,
+                                        data bundles, electricity bill payments, and cable TV subscriptions for all
+                                        major providers in Nigeria.</p>
+                                </li>
+                                <li class="px-4 py-5 sm:px-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">How long does it take to
+                                        process a transaction?</h3>
+                                    <p class="mt-2 text-sm text-gray-500">Most transactions are processed in real-time,
+                                        typically within 5-10 seconds. During peak periods or network issues, it may
+                                        take up to 2 minutes.</p>
+                                </li>
+                                <li class="px-4 py-5 sm:px-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">What happens if a
+                                        transaction fails?</h3>
+                                    <p class="mt-2 text-sm text-gray-500">If a transaction fails, the system will
+                                        attempt to reverse it automatically. You will receive a notification with the
+                                        status and reason for failure. Funds will be returned to your account balance.
+                                    </p>
+                                </li>
+                                <li class="px-4 py-5 sm:px-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">How do I handle webhook
+                                        notifications?</h3>
+                                    <p class="mt-2 text-sm text-gray-500">Set up a webhook endpoint in your application
+                                        to receive real-time notifications. Configure the webhook URL in your PayGate
+                                        dashboard under Settings &gt; Webhooks.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Support Tab -->
+                    <div class="tab-content hidden" id="contact">
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Contact Support</h3>
+                            <p class="mt-2 max-w-xl text-sm text-gray-500">Fill out the form below and our support team
+                                will get back to you within 24 hours.</p>
+                            <form id="supportForm" class="mt-5 sm:flex sm:items-center">
+                                <div class="w-full sm:max-w-md">
+                                    <textarea id="message" rows="4"
+                                        class="shadow-sm focus:ring-[#00C4B3] focus:border-[#00C4B3] block w-full sm:text-sm border-gray-300 rounded-md"
+                                        placeholder="Describe your issue or question..." required></textarea>
+                                </div>
+                                <button type="submit"
+                                    class="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-[#00C4B3] hover:bg-[#00C4B3]/90 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                    Send Message <span class="ml-2 -mr-1">📤</span>
+                                </button>
+                            </form>
+
+                            <!-- Alternative Contact Methods -->
+                            <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                                <div class="bg-white overflow-hidden shadow rounded-lg px-4 py-5 sm:p-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">Email Support</h3>
+                                    <p class="mt-2 max-w-xl text-sm text-gray-500">Send us an email and we'll respond
+                                        within 24 hours.</p>
+                                    <a href="mailto:support@paygate-api.com"
+                                        class="text-[#00C4B3] hover:text-[#00C4B3]/80 mt-3 block">support@paygate-api.com</a>
+                                </div>
+                                <div class="bg-white overflow-hidden shadow rounded-lg px-4 py-5 sm:p-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">Live Chat</h3>
+                                    <p class="mt-2 max-w-xl text-sm text-gray-500">Chat with our support team during
+                                        business hours.</p>
+                                    <button
+                                        class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 mt-3">
+                                        💬 Start Chat
+                                    </button>
+                                </div>
+                                <div class="bg-white overflow-hidden shadow rounded-lg px-4 py-5 sm:p-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">Phone Support</h3>
+                                    <p class="mt-2 max-w-xl text-sm text-gray-500">Call us directly for urgent issues.
+                                    </p>
+                                    <a href="tel:+2348012345678"
+                                        class="text-[#00C4B3] hover:text-[#00C4B3]/80 mt-3 block">+234 801 234 5678</a>
+                                    <p class="mt-1 text-xs text-gray-500">Monday - Friday, 9am - 5pm WAT</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+
+    </div>
+
+    <script>
+        // Elements
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const openSidebarBtn = document.getElementById('openSidebarBtn');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+        // Open mobile sidebar
+        function openSidebar() {
+            sidebarOverlay.classList.remove('hidden');
+            mobileSidebar.classList.remove('-translate-x-full');
+            // prevent body scroll when sidebar open
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close mobile sidebar
+        function closeSidebar() {
+            sidebarOverlay.classList.add('hidden');
+            mobileSidebar.classList.add('-translate-x-full');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+        }
+
+        // Toggle wrapper used by inline onclick in header
+        function toggleSidebar(show) {
+            if (show) openSidebar();
+            else closeSidebar();
+        }
+
+        // Hook buttons
+        openSidebarBtn && openSidebarBtn.addEventListener('click', openSidebar);
+        closeSidebarBtn && closeSidebarBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar on Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+
+        // Tabs JS
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabButtons.forEach(b => {
+                    b.classList.remove('border-[#00C4B3]', 'text-[#00C4B3]');
+                    b.classList.add('border-transparent', 'text-gray-500');
+                });
+                btn.classList.add('border-[#00C4B3]', 'text-[#00C4B3]');
+                btn.classList.remove('border-transparent', 'text-gray-500');
+
+                tabContents.forEach(content => content.classList.add('hidden'));
+                document.getElementById(btn.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        // Form submit
+        document.getElementById('supportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const msg = document.getElementById('message').value;
+            alert('Support message sent:\n' + msg);
+            document.getElementById('message').value = '';
+        });
+
+        // FAQ search filter
+        const faqSearch = document.getElementById('faqSearch');
+        const faqList = document.getElementById('faqList');
+        faqSearch.addEventListener('input', function () {
+            const search = this.value.toLowerCase();
+            faqList.querySelectorAll('li').forEach(li => {
+                const question = li.querySelector('h3').textContent.toLowerCase();
+                const answer = li.querySelector('p').textContent.toLowerCase();
+                li.style.display = question.includes(search) || answer.includes(search) ? '' : 'none';
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
