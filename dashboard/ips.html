@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Dashboard | PayGate API</title>
+    <title>IPS | PayGate API</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -200,7 +200,7 @@
     </aside>
 
     <!-- Main content -->
-    <div class="lg:pl-64 flex flex-col flex-1">
+    <div class="flex-1 flex flex-col lg:pl-64 min-h-screen">
         <header class="bg-white shadow-sm z-10">
             <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
                 <button id="openSidebarBtn" class="lg:hidden text-gray-500 focus:outline-none"
@@ -233,6 +233,92 @@
                 </div>
             </div>
         </header>
+
+        <main class="flex-1 py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-2xl font-semibold text-gray-900">IP Whitelisting</h1>
+            <p class="mt-1 text-sm text-gray-500">Manage IP addresses that are allowed to access your API</p>
+
+            <!-- Main Card -->
+            <div class="mt-6 bg-white shadow-sm sm:rounded-lg p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 space-y-4 md:space-y-0">
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900">Whitelisted IP Addresses</h3>
+                        <p class="mt-1 text-sm text-gray-500">Only requests from these IP addresses will be processed
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            🛡️ <span class="text-sm text-gray-700 ml-2">IP Whitelisting: Active</span>
+                        </div>
+                        <button type="button" onclick="refreshList()"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#00C4B3] hover:bg-[#00C4B3]/90">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add IP Form -->
+                <div class="bg-gray-50 p-4 rounded-md mb-6">
+                    <h4 class="text-base font-medium text-gray-900 mb-3">Add New IP Address</h4>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <input type="text" id="ipInput" placeholder="IP Address"
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                        <input type="text" id="descInput" placeholder="Description"
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#00C4B3] focus:border-[#00C4B3] sm:text-sm">
+                        <button type="button" onclick="addIp()"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#00C4B3] hover:bg-[#00C4B3]/90">
+                            ➕ Add IP
+                        </button>
+                    </div>
+                    <div id="errorMsg" class="mt-2 flex items-center text-sm text-red-600 hidden">
+                        ⚠️ <span id="errorText" class="ml-1"></span>
+                    </div>
+                </div>
+
+                <!-- IP Table -->
+                <div class="mt-4">
+                    <!-- Large screens: Table -->
+                    <div class="hidden lg:block overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th
+                                        class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        IP Address</th>
+                                    <th
+                                        class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Description</th>
+                                    <th
+                                        class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Last Used</th>
+                                    <th
+                                        class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Status</th>
+                                    <th class="px-4 py-2"><span class="sr-only">Actions</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="ipTableLg" class="bg-white divide-y divide-gray-200"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Small screens: Cards -->
+                    <div id="ipTableSm" class="lg:hidden space-y-4"></div>
+                </div>
+
+
+                <!-- Info Panel -->
+                <div class="mt-6 bg-yellow-50 p-4 rounded-md flex space-x-2">
+                    ⚠️
+                    <div>
+                        <h3 class="text-sm font-medium text-yellow-800">Important Information</h3>
+                        <p class="mt-1 text-sm text-yellow-700">
+                            IP whitelisting adds an extra layer of security by restricting API access to specified IP
+                            addresses only. Make sure to add all the IP addresses that will be used to access the API.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
 
 
     </div>
@@ -278,6 +364,97 @@
                 closeSidebar();
             }
         });
+
+
+        // Initial IPs
+        let whitelistedIps = [
+            { id: '1', ip: '192.168.1.1', description: 'Office IP', lastUsed: '2023-07-15', status: 'active' },
+            { id: '2', ip: '203.0.113.0', description: 'Home IP', lastUsed: '2023-07-10', status: 'active' }
+        ];
+
+        function renderTable() {
+            const tableLg = document.getElementById('ipTableLg');
+            const tableSm = document.getElementById('ipTableSm');
+
+            tableLg.innerHTML = '';
+            tableSm.innerHTML = '';
+
+            whitelistedIps.forEach(ip => {
+                // Desktop table row
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${ip.ip}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${ip.description}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${ip.lastUsed}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">${ip.status}</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <button onclick="deleteIp('${ip.id}')" class="text-red-600 hover:text-red-900">🗑️</button>
+            </td>`;
+                tableLg.appendChild(row);
+
+                // Mobile card
+                const card = document.createElement('div');
+                card.className = 'bg-white shadow rounded-lg p-4 flex flex-col space-y-2';
+                card.innerHTML = `
+            <div class="flex justify-between items-center">
+                <span class="font-medium text-gray-900">${ip.ip}</span>
+                <button onclick="deleteIp('${ip.id}')" class="text-red-600 hover:text-red-900 text-sm">🗑️ Delete</button>
+            </div>
+            <div class="text-sm text-gray-500">Description: ${ip.description}</div>
+            <div class="text-sm text-gray-500">Last Used: ${ip.lastUsed}</div>
+            <div class="text-sm">
+                Status: <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">${ip.status}</span>
+            </div>`;
+                tableSm.appendChild(card);
+            });
+        }
+
+        function addIp() {
+            const ipInput = document.getElementById('ipInput').value.trim();
+            const descInput = document.getElementById('descInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const errorText = document.getElementById('errorText');
+
+            const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+            if (!ipRegex.test(ipInput)) {
+                errorText.textContent = 'Please enter a valid IP address';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            if (!descInput) {
+                errorText.textContent = 'Please provide a description';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            const newIp = {
+                id: (whitelistedIps.length + 1).toString(),
+                ip: ipInput,
+                description: descInput,
+                lastUsed: 'Never',
+                status: 'active'
+            };
+
+            whitelistedIps.push(newIp);
+            document.getElementById('ipInput').value = '';
+            document.getElementById('descInput').value = '';
+            errorMsg.classList.add('hidden');
+            renderTable();
+        }
+
+        function deleteIp(id) {
+            whitelistedIps = whitelistedIps.filter(ip => ip.id !== id);
+            renderTable();
+        }
+
+        function refreshList() {
+            renderTable();
+        }
+
+        // Initial render
+        renderTable();
 
 
     </script>
