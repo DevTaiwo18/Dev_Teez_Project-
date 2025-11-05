@@ -12,7 +12,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <!-- Logo -->
         <div class="flex justify-center">
-            <a href="/" class="flex items-center">
+            <a href="./index.html" class="flex items-center">
                 <div class="h-10 w-10 bg-gradient-to-r from-[#0A2540] to-[#00C4B3] rounded-lg mr-2"></div>
                 <span class="text-[#0A2540] font-bold text-2xl">PayGate API</span>
             </a>
@@ -24,7 +24,7 @@
 
         <p class="mt-2 text-center text-sm text-gray-600">
             Already have an account?
-            <a href="/login" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
+            <a href="./login.html" class="font-medium text-[#00C4B3] hover:text-[#00C4B3]/80">
                 Sign in
             </a>
         </p>
@@ -41,7 +41,7 @@
                         d="M9 12l2 2l4 -4m6 2a9 9 0 1 1 -18 0a9 9 0 0 1 18 0z" />
                 </svg>
                 <h3 class="mt-2 text-lg font-medium text-gray-900">Account created successfully!</h3>
-                <p class="mt-1 text-sm text-gray-500">Redirecting you to login...</p>
+                <p class="mt-1 text-sm text-gray-500">Redirecting you to business verification...</p>
             </div>
 
             <!-- ✅ Form -->
@@ -96,7 +96,7 @@
             </form>
 
             <div class="mt-6">
-                <a href="/"
+                <a href="./index.html"
                     class="flex items-center justify-center text-sm font-medium text-gray-600 hover:text-gray-900">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -122,6 +122,11 @@
             setTimeout(() => {
                 form.classList.add('hidden');
                 success.classList.remove('hidden');
+
+                // Redirect after success
+                setTimeout(() => {
+                    window.location.href = './businessverification.html';
+                }, 2000);
             }, 1500);
         });
     </script>
